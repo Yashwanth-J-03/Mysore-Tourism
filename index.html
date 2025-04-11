@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Mysore - The City of Palaces</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #6a4c93;
+            --secondary-color: #8a5a44;
+            --accent-color: #f8b400;
+            --light-color: #f7f7f7;
+            --dark-color: #333;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark-color);
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            background-color: rgba(255, 255, 255, 0.98) !important;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+            font-size: 1.8rem;
+        }
+        
+        .nav-link {
+            color: var(--dark-color) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a3d7a;
+            border-color: #5a3d7a;
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1587474260584-136574528ed5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .hero .btn {
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        
+        .section-title h2 {
+            font-weight: 700;
+            color: var(--primary-color);
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .feature-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-card img {
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .feature-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .feature-card .card-body {
+            padding: 25px;
+        }
+        
+        .feature-card .card-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .feature-card .card-text {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial {
+            background-color: var(--light-color);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .testimonial::before {
+            content: '\201C';
+            font-size: 80px;
+            color: rgba(106, 76, 147, 0.1);
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        
+        .testimonial .rating {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+        
+        .testimonial .client-info {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .testimonial .client-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(106, 76, 147, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+        
+        .gallery-item .overlay i {
+            color: white;
+            font-size: 40px;
+        }
+        
+        .contact-info {
+            background-color: var(--light-color);
+            padding: 30px;
+            border-radius: 10px;
+            height: 100%;
+        }
+        
+        .contact-info i {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-right: 15px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+        }
+        
+        .form-control {
+            padding: 12px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+        
+        .form-control:focus {
+            box-shadow: none;
+            border-color: var(--primary-color);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        footer h5 {
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        footer p {
+            color: #bbb;
+        }
+        
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        footer ul li {
+            margin-bottom: 10px;
+        }
+        
+        footer ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        footer ul li a:hover {
+            color: white;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+            color: #bbb;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: #5a3d7a;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                height: 80vh;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-archway me-2"></i>Mysore Tourism
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#attractions">Attractions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Discover the Royal City of Mysore</h1>
+                    <p class="lead">Experience the rich heritage, magnificent palaces, and vibrant culture of Karnataka's cultural capital</p>
+                    <a href="#attractions" class="btn btn-primary btn-lg me-2">Explore Attractions</a>
+                    <a href="#contact" class="btn btn-outline-light btn-lg">Plan Your Visit</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-5" id="about">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="section-title">
+                        <h2>About Mysore</h2>
+                    </div>
+                    <p class="lead">Mysore, officially known as Mysuru, is a city in the southern part of Karnataka, India. It served as the capital of the Kingdom of Mysore for nearly six centuries.</p>
+                    <p>The city is known for its rich cultural heritage, magnificent palaces, beautiful gardens, and silk sarees. Mysore is also famous for its Dasara festival, which attracts tourists from all over the world.</p>
+                    <p>With its pleasant climate, historical significance, and architectural marvels, Mysore offers a perfect blend of tradition and modernity, making it one of India's top tourist destinations.</p>
+                    <a href="#attractions" class="btn btn-primary mt-3">Discover More</a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://i.pinimg.com/736x/36/d1/7b/36d17b7470e2ebdd367a930a753ee1b3.jpg" class="card-img-top" alt="Mysuru Palace">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Attractions Section -->
+    <section class="py-5 bg-light" id="attractions">
+        <div class="container py-5">
+            <div class="section-title">
+                <h2>Top Attractions</h2>
+                <p class="text-center">Explore the must-visit places in Mysore</p>
+            </div>
+            <div class="row">
+                <!-- Attraction 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <img src="https://i.pinimg.com/736x/36/d1/7b/36d17b7470e2ebdd367a930a753ee1b3.jpg" class="card-img-top" alt="Mysuru Palace">
+                        <div class="card-body">
+                            <h5 class="card-title">Mysore Palace</h5>
+                            <p class="card-text">The official residence of the Wadiyar dynasty and the most famous tourist attraction in Mysore. The palace is illuminated on Sundays and during festivals.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-map-marker-alt me-2"></i>City Center</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#palaceModal">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Attraction 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <img src="https://i.pinimg.com/736x/d2/4c/a8/d24ca84bbd00be4ceab89e55b7ea98cd.jpg" class="card-img-top" alt="Chamundi Hills">
+                        <div class="card-body">
+                            <h5 class="card-title">Chamundi Hills</h5>
+                            <p class="card-text">A prominent landmark with the Chamundeshwari Temple atop. The hill offers panoramic views of Mysore city and has a giant Nandi statue on the way.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-map-marker-alt me-2"></i>13 km from city</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#chamundiModal">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Attraction 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <img src="https://i.pinimg.com/736x/b4/5d/34/b45d3428fecf1b69e347b642f7c2c7e5.jpg" class="card-img-top" alt="Brindavan Gardens">
+                        <div class="card-body">
+                            <h5 class="card-title">Brindavan Gardens</h5>
+                            <p class="card-text">Famous for its symmetric design and musical fountain shows in the evening. The gardens are located below the Krishnarajasagara dam.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-map-marker-alt me-2"></i>19 km from city</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#brindavanModal">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Attraction 4 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <img src="https://i.pinimg.com/736x/57/fb/7c/57fb7cf5547dcaafd446ccfd250c64f6.jpg" class="card-img-top" alt="St. Philomena's Church">
+                        <div class="card-body">
+                            <h5 class="card-title">St. Philomena's Church</h5>
+                            <p class="card-text">One of the tallest churches in Asia, built in neo-gothic style. The church is dedicated to St. Philomena, a 3rd-century saint from Greece.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-map-marker-alt me-2"></i>Lashkar Mohalla</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#churchModal">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Attraction 5 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <img src="https://i.pinimg.com/736x/af/79/8e/af798e4d57a51b35ea2a0d959b08611f.jpg" class="card-img-top" alt="Jaganmohan Palace">
+                        <div class="card-body">
+                            <h5 class="card-title">Jaganmohan Palace</h5>
+                            <p class="card-text">Now an art gallery, this palace was the royal family's residence when the main palace was under construction after a fire.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-map-marker-alt me-2"></i>Jayalakshmi Vilas Road</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#jaganmohanModal">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Attraction 6 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <img src="https://imgstaticcontent.lbb.in/lbbnew/wp-content/uploads/sites/2/2017/04/31200815/MysoreZoo1.jpg" class="card-img-top" alt="Mysore Zoo">
+                        <div class="card-body">
+                            <h5 class="card-title">Mysore Zoo</h5>
+                            <p class="card-text">Officially known as Sri Chamarajendra Zoological Gardens, it's one of the oldest and most popular zoos in India.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-map-marker-alt me-2"></i>Indira Nagar</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#zooModal">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-5" id="gallery">
+        <div class="container py-5">
+            <div class="section-title">
+                <h2>Photo Gallery</h2>
+                <p class="text-center">A glimpse of Mysore's beauty through the lens</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item">
+                        <img src="https://i.pinimg.com/474x/b6/1a/87/b61a87074d5dc6b042edb7d6dea2d4b4.jpg" alt="Mysore Palace Illuminated">
+                        <div class="overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item">
+                        <img src="https://i.pinimg.com/736x/e6/62/0d/e6620d4ff00f760192d2d6f656d160d1.jpg" class="card-img-top" alt="Brindavan Gardens">
+                        <div class="overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item">
+                        <img src="https://i.pinimg.com/474x/5f/3a/77/5f3a7791e3e430a92aeb5033f57b808c.jpg" alt="Brindavan Gardens Fountain">
+                        <div class="overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item">
+                        <img src="https://i.pinimg.com/474x/a8/55/6b/a8556b50d6bfc1cbea6fe61aef5240d5.jpg" alt="St. Philomena's Church Interior">
+                        <div class="overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item">
+                        <img src="https://i.pinimg.com/474x/ac/21/1d/ac211d605d60be468c0fc751f8b2a83e.jpg" class="card-img-top" alt="Brindavan Gardens">
+                        <div class="overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item">
+                        <img src="https://i.pinimg.com/474x/a7/1c/b6/a71cb6ea0827ce6991db703bbd7dd2bd.jpg" alt="Mysore Silk Sarees">
+                        <div class="overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5 bg-light" id="testimonials">
+        <div class="container py-5">
+            <div class="section-title">
+                <h2>Visitor Testimonials</h2>
+                <p class="text-center">What people say about their Mysore experience</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="testimonial">
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Mysore Palace is absolutely breathtaking, especially during the evening illumination. The intricate architecture and rich history make it a must-visit destination in South India."</p>
+                        <div class="client-info">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson">
+                            <div>
+                                <h6>Sarah Johnson</h6>
+                                <span>Travel Blogger</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial">
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p>"The Dasara festival in Mysore is a cultural extravaganza. The palace illumination, procession, and various cultural programs made our visit truly memorable."</p>
+                        <div class="client-info">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Rajesh Kumar">
+                            <div>
+                                <h6>Rajesh Kumar</h6>
+                                <span>Photographer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial">
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Chamundi Hills offers a spectacular view of the city. The climb up the 1000 steps was challenging but worth it for the panoramic views and the beautiful temple at the top."</p>
+                        <div class="client-info">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Maria Garcia">
+                            <div>
+                                <h6>Maria Garcia</h6>
+                                <span>Tourist from Spain</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-5" id="contact">
+        <div class="container py-5">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p class="text-center">Plan your visit to Mysore with our help</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <div class="contact-info">
+                        <h3>Get In Touch</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Mysore Tourism Office, Sayyaji Rao Road, Mysore - 570001</p>
+                        <p><i class="fas fa-phone"></i> +91 821 242 2096</p>
+                        <p><i class="fas fa-envelope"></i> info@mysoretourism.com</p>
+                        <p><i class="fas fa-clock"></i> Monday to Saturday: 9:00 AM to 6:00 PM</p>
+                        <div class="social-icons mt-4">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <form id="contactForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Your Name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Subject">
+                        <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5>About Mysore Tourism</h5>
+                    <p>We are dedicated to promoting the rich cultural heritage and tourist attractions of Mysore. Our goal is to provide visitors with the best possible experience in this royal city.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#attractions">Attractions</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5>Popular Attractions</h5>
+                    <ul>
+                        <li><a href="#">Mysore Palace</a></li>
+                        <li><a href="#">Chamundi Hills</a></li>
+                        <li><a href="#">Brindavan Gardens</a></li>
+                        <li><a href="#">St. Philomena's Church</a></li>
+                        <li><a href="#">Mysore Zoo</a></li>
+                        <li><a href="#">Jaganmohan Palace</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe to our newsletter for updates on events and attractions in Mysore.</p>
+                    <form class="mb-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your Email">
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                    <p><i class="fas fa-phone me-2"></i> Tourism Helpline: 1800 425 4747</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Mysore Tourism. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Attraction Modals -->
+    <!-- Mysore Palace Modal -->
+    <div class="modal fade" id="palaceModal" tabindex="-1" aria-labelledby="palaceModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="palaceModalLabel">Mysore Palace</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="img-fluid mb-3" alt="Mysore Palace">
+                    <p>The Mysore Palace, also known as Amba Vilas Palace, is a historical palace and the royal residence at Mysore in the Indian state of Karnataka. It is the official residence of the Wadiyar dynasty and the seat of the Kingdom of Mysore. The palace is in the centre of Mysore, and faces the Chamundi Hills
